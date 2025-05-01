@@ -8,3 +8,11 @@
 img {
     width: 468px;
 }
+
+a {
+    color: slateblue;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}

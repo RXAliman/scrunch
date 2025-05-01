@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href='/styles/style.css'>
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include("partials/sidebar.ejs") %>
+    <img src="<%- post.imageURL %>">
+    <p><a href="/user/<%= post.accountID %>"><b><%= accountName %></b></a> • <span style="color:grey;"> <%= formattedTimestamp %></span></p>
+    <% if (post.accountID == id) { %>
+        <button onclick="location.href='/post/<%= postID %>/edit';">Edit Post</button>
+    <% } %>
+    <p class="preserve-whitespace"><%= post.caption %></p>
+    <br>
+    <% if (isAuthenticated) { %> 
+        <button>Crunch</button><br>
+        <form action="/post/<%= postID %>" method="POST">
+            <textarea name="comment" placeholder="Comment as <%= firstName %> <%= lastName %>" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    <% } else { %> 
+        <p><a href="/login?redirectURL=/post/<%= postID %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= postID %>">Sign up</a> in order to interact with this post.</p>
+    <% } %>
+    <br>
+    <% if (comments) { %>
+        <h3>Comments</h3>
+        <% comments.forEach(comment => { %>
+            <p class="preserve-whitespace"><a href="/user/<%= comment.accountID %>"><b><%= comment.accountName %></b></a> <span style="color:grey;"><%= comment.formattedTimestamp%></span><br><%= comment.content %></p>
+        <% }) %>
+    <% } else { %>
+        <p>No comments yet</p>
+    <% } %>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title><%= post == null ? "Create Post | Scrunch" : "Edit Post | Scrunch" %></title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' href="/styles/style.css">
+</head>
+<body>
+    <%- include("partials/sidebar.ejs") %>
+    <h1><%= post == null ? "Create Post" : "Edit Post" %></h1>
+    <% if (post == null) { %>
+        <form action="/create" method="POST">
+    <% } else { %>
+        <form action="/post/<%= postID %>/edit" method="POST">
+    <% } %>
+        <textarea name="caption" placeholder="What's on your mind?" required><%= post.caption || '' %></textarea>
+        <input type="text" name="image" placeholder="Image URL" value="<%= post.imageURL || '' %>" required>
+        <button type="submit"><%= post == null ? "Create" : "Edit" %></button>
+    </form>
+</body>
+</html>

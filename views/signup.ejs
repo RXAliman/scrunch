@@ -5,13 +5,15 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='/styles/style.css'>
-    <title>Sign up</title>
+    <title>Sign up | Scrunch</title>
 </head>
 <main>
+    <h1>Sign up</h1>
     <% if (errorMessage) { %>
         <p style="background:rosybrown; color: white;"><%= errorMessage %></p>
     <% } %>
     <form action='/signup' method='POST'>
+        <input type="hidden" name="redirectURL" value="<%= redirectURL %>">
         <input type="text" name="firstName" placeholder="First Name" value="<%= firstName || '' %>" required>
         <input type="text" name="lastName" placeholder="Last Name" value="<%= lastName || '' %>" required>
         <input type="email" name="email" placeholder="E-mail Address" value="<%= email || '' %>" required>

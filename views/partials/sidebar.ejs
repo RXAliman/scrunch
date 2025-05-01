@@ -1,9 +1,12 @@
 <aside>
     <h1><a href="/">Scrunch</a></h1>
     <% if (isAuthenticated == true) { %>
+        <h3><a href="/user/<%= id %>"><%= firstName %> <%= lastName %></a></h3>
+        <h3><a href="/create/">Create Post</a></h3>
         <h3><a href="/signout">Sign out</a></h3>
     <% } else { %>
         <h3><a href="/login">Log in</a></h3>
         <h3><a href="/signup">Sign up</a></h3>
     <% } %>
 </aside>
+<br>

@@ -9,11 +9,10 @@
 </head>
 <%- include("partials/sidebar.ejs")  %>
 <body>
-    <% posts.forEach(post => { %>
-        <p><b><a href="/user/<%= post.accountID %>"><%= post.accountName %></a></b> • <span style="color:grey;"> <%= post.formattedTimestamp %></span></p>
-        <p><%= post.caption %></p>
-        <img src="<%= post.imageURL %>">
-        <br><br>
-    <% }) %>
+    <% if (posts.length != 0) { %>
+        <%- include("partials/feed.ejs") %>
+    <% } else { %>
+        <h3>It's empty here... Be the first one to post</h3>
+    <% } %>
 </body>
 </html>

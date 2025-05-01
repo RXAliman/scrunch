@@ -5,10 +5,16 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' href='/styles/style.css'>
-    <title><%= profile.name %></title>
+    <title><%= profile.name %> | Scrunch</title>
 </head>
 <%- include("partials/sidebar.ejs")  %>
 <body>
-    <h1>You're inside <%= profile.name %>'s Profile Page!</h1>
+    <h1><%= profile.name %></h1>
+    <% if (posts.length != 0) { %>
+        <h3><%= posts.length > 1 ? posts.length + ' posts' : posts.length + ' post' %></h3>
+        <%- include("partials/feed.ejs") %>
+    <% } else { %> 
+        <h3>No posts from <%= profile.name %></h3>
+    <% } %> 
 </body>
 </html>
