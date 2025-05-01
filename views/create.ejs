@@ -15,8 +15,8 @@
     <% } else { %>
         <form action="/post/<%= postID %>/edit" method="POST">
     <% } %>
-        <textarea name="caption" placeholder="What's on your mind?" required><%= post.caption || '' %></textarea>
-        <input type="text" name="image" placeholder="Image URL" value="<%= post.imageURL || '' %>" required>
+        <textarea name="caption" placeholder="What's on your mind?" required><%= post ? post.caption : '' %></textarea>
+        <input type="text" name="image" placeholder="Image URL" value="<%= post ? post.imageURL : '' %>" required>
         <button type="submit"><%= post == null ? "Create" : "Edit" %></button>
     </form>
 </body>
