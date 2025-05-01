@@ -4,9 +4,16 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="/styles/style.css">
     <title>Scrunch</title>
 </head>
+<%- include("partials/sidebar.ejs")  %>
 <body>
-    <h1>Scrunch gusto ko nalang mag-disintegrate</h1>
+    <% posts.forEach(post => { %>
+        <p><b><a href="/user/<%= post.accountID %>"><%= post.accountName %></a></b> • <span style="color:grey;"> <%= post.formattedTimestamp %></span></p>
+        <p><%= post.caption %></p>
+        <img src="<%= post.imageURL %>">
+        <br><br>
+    <% }) %>
 </body>
 </html>
