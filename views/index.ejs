@@ -1,18 +1,259 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Scrunch - Connect and share with friends">
     <link rel="stylesheet" href="/styles/style.css">
-    <title>Scrunch</title>
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Scrunch - Home</title>
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc1e9;
+            --light-bg: #f5f7fa;
+            --dark-text: #2c3e50;
+            --light-text: #ecf0f1;
+            --border-color: #e0e6ed;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px; /* Adjust based on your sidebar width */
+            transition: margin-left 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                padding: 10px;
+            }
+        }
+        
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .empty-state i {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .empty-state h3 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .empty-state p {
+            font-size: 1rem;
+            color: #7f8c8d;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+        
+        .new-post-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        .new-post-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .new-post-btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .loader {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .page-title {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .page-title h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .feed-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .feed-filter select {
+            padding: 8px 12px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .refresh-btn {
+            background: transparent;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .refresh-btn i {
+            margin-right: 5px;
+        }
+    </style>
 </head>
-<%- include("partials/sidebar.ejs")  %>
 <body>
-    <% if (posts.length != 0) { %>
-        <%- include("partials/feed.ejs") %>
-    <% } else { %>
-        <h3>It's empty here... Be the first one to post</h3>
-    <% } %>
+    <%- include("partials/sidebar.ejs") %>
+    
+    <div class="main-content" id="main-content">
+        <div class="page-title">
+            <h1>Your Feed</h1>
+            <button class="new-post-btn" id="newPostBtn">
+                <i class="fas fa-plus"></i> Create Post
+            </button>
+        </div>
+        
+        <% if (posts && posts.length > 0) { %>
+            <div class="feed-controls">
+                <div class="feed-filter">
+                    <select id="feedFilter">
+                        <option value="latest">Latest</option>
+                        <option value="popular">Popular</option>
+                        <option value="following">Following</option>
+                    </select>
+                </div>
+                <button class="refresh-btn" id="refreshFeed">
+                    <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+            </div>
+            
+            <div class="loader" id="feedLoader"></div>
+            <div class="feed-container">
+                <%- include("partials/feed.ejs") %>
+            </div>
+        <% } else { %>
+            <div class="empty-state">
+                <i class="far fa-comment-dots"></i>
+                <h3>It's empty here... Be the first one to post!</h3>
+                <p>Share your thoughts, ask questions, or start a conversation. Your post will appear here.</p>
+                <button class="new-post-btn" id="emptyStatePostBtn">
+                    <i class="fas fa-plus"></i> Create Your First Post
+                </button>
+            </div>
+        <% } %>
+    </div>
+
+    <script>
+        // Basic interaction for the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // New post button functionality
+            const newPostBtn = document.getElementById('newPostBtn');
+            const emptyStatePostBtn = document.getElementById('emptyStatePostBtn');
+            
+            if (newPostBtn) {
+                newPostBtn.addEventListener('click', function() {
+                    // Redirect to create post page or open a modal
+                    window.location.href = '/create';
+                });
+            }
+            
+            if (emptyStatePostBtn) {
+                emptyStatePostBtn.addEventListener('click', function() {
+                    window.location.href = '/create';
+                });
+            }
+            
+            // Refresh feed functionality
+            const refreshBtn = document.getElementById('refreshFeed');
+            const feedLoader = document.getElementById('feedLoader');
+            
+            if (refreshBtn && feedLoader) {
+                refreshBtn.addEventListener('click', function() {
+                    feedLoader.style.display = 'block';
+                    
+                    // Simulate refresh with timeout
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1000);
+                });
+            }
+            
+            // Feed filter functionality
+            const feedFilter = document.getElementById('feedFilter');
+            if (feedFilter) {
+                feedFilter.addEventListener('change', function() {
+                    feedLoader.style.display = 'block';
+                    
+                    // Simulate filter change with timeout
+                    setTimeout(function() {
+                        feedLoader.style.display = 'none';
+                        // In a real app, you would fetch and update posts here
+                    }, 1000);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
