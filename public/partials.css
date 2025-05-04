@@ -1,0 +1,155 @@
+/* header.ejs */
+header {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+header .logo a {
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+/* feed.ejs */
+.post-image {
+    width: 468px;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+/* sidebar.ejs */
+aside {
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    align-self: flex-start;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: var(--primary-color);
+    border-right: px solid var(--accent-color);
+    transition: width 0.3s ease;
+    height: 100vh;
+    width: 16vw;
+    top: 0;
+    padding: 2rem 1rem;
+    gap: 2rem;
+}
+
+aside .logo a {
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+aside nav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex-grow: 1;
+}
+
+aside nav .nav__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    gap: 1rem;
+}
+
+aside nav .nav__list .nav__items > * {
+    all: unset;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--dark-text);
+    width: 100%;
+    padding: 1rem 0 1rem .5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+aside nav .nav__list .nav__items * > i {
+    margin: 0 .75rem 0 0;
+    font-size: 1rem;
+}
+
+aside nav .nav__list .nav__items > *:hover {
+    background: var(--secondary-color);
+}
+
+@media (max-width: 1260px) {
+    aside {
+        align-items: center;
+        width: 70px;    
+        padding: 1rem;
+    }
+    
+    aside .logo a span {
+        display: none;
+    }
+
+    aside nav {
+        flex-grow: 0;
+    }
+
+    aside nav .nav__list .nav__items * > span {
+        display: none;
+    }
+
+    aside nav .nav__list .nav__items > * {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+  
+    }
+}
+
+/* bottom_navigation.ejs */
+    .bottom-navigation {
+        display: none;
+    }
+
+@media (max-width: 784px) {
+    aside {
+        display: none;
+    }
+
+    .bottom-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;          
+        background-color: var(--primary-color);
+        border-top: 1px solid var(--accent-color);
+        bottom: 0;
+        left: 0;
+        width: 100vw;                
+        height: 10vh;
+    }
+
+    .bottom-navigation nav {
+        width: 100%;
+    }
+
+    .bottom-navigation nav .nav__list {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .bottom-navigation nav .nav__list .nav__items {
+        padding: 1rem;
+        align-items: center;
+    }
+
+}
+

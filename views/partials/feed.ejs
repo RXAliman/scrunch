@@ -4,7 +4,7 @@
         <button onclick="location.href='/post/<%= post.id %>/edit';">Edit Post</button>
     <% } %>
     <p class="preserve-whitespace"><%= post.caption %></p>
-    <img src="<%= post.imageURL %>">
+    <img class="post-image" src="<%= post.imageURL %>">
     <br>
     <% if (isAuthenticated) { %> 
         <button>Crunch</button>
