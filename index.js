@@ -92,6 +92,8 @@ function formatDate(timestamp) {
     datetime: null,
   };
   const now = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
   const postDate = new Date(parseInt(timestamp));
   const month = postDate.toLocaleString('default', { month: 'short' });
   const day = postDate.getDate();
@@ -104,9 +106,9 @@ function formatDate(timestamp) {
   const diffInMinutes = Math.round(diffInSeconds / 60);
   const diffInHours = Math.round(diffInMinutes / 60);
   const diffInDays = Math.round(diffInHours / 24);
-  if (diffInDays == 0) {
+  if (postDate.getDate() == now.getDate()) {
     result.datetime = `Today at ${time}`;
-  } else if (diffInDays == 1) {
+  } else if (postDate.getDate() == yesterday.getDate()) {
     result.datetime = `Yesterday at ${time}`;
   } else {
     result.datetime = `${month} ${day}, ${year} at ${time}`;

@@ -12,7 +12,7 @@
     <% if (errorMessage) { %>
         <p style="background:rosybrown; color: white;"><%= errorMessage %></p>
     <% } %>
-    <form action='/signup' method='POST'>
+    <form action='/signup<%= redirectURL != null ? `?redirectURL=${redirectURL}` : '' %></form>' method='POST'>
         <input type="hidden" name="redirectURL" value="<%= redirectURL %>">
         <input type="text" name="firstName" placeholder="First Name" value="<%= firstName || '' %>" required>
         <input type="text" name="lastName" placeholder="Last Name" value="<%= lastName || '' %>" required>
@@ -21,6 +21,6 @@
         <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
         <button type="submit">Sign up</button><br>
     </form>
-    <p>Already have an account? <a href="/login">Log in</a></p>
+    <p>Already have an account? <a href="/login<%= redirectURL != null ? `?redirectURL=${redirectURL}` : '' %>">Log in</a></p>
 </main>
 </html>
