@@ -275,6 +275,7 @@ app.get('/user/:id', [getUser], async (req, res, next) => {
       profile,
       ...res.locals.user,
       posts,
+      errorMessage: null,
     });
     return;
   }
