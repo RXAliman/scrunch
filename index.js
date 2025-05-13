@@ -29,7 +29,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getDatabase(firebaseApp);
 const dbPostsRef = ref(db, 'posts');
-const dbProfilesRef = ref(db, 'profiles');
 
 // Firebase authentication
 const auth = getAuth();
@@ -143,7 +142,13 @@ app.get('/', [getUser], async (req, res) => {
     const promises = Object.entries(data).map(async ([key, value]) => {
       const accountIDSnapshot = await get(
         ref(db, `profiles/${value.accountID}/name`)
-      );
+      );  
+      const postSnapshot = await get(ref(db, `posts/${key}`));
+      const post = postSnapshot.val() || {};
+      let userHasReacted = false;
+      if (auth.currentUser != null) {
+        userHasReacted = post.reactions && post.reactions.hasOwnProperty(auth.currentUser.uid);
+      } 
       const accountName = accountIDSnapshot.val();
       const timestamp = formatDate(value.timestamp).formattedTimestamp;
       return {
@@ -156,6 +161,7 @@ app.get('/', [getUser], async (req, res) => {
         timestamp: value.timestamp,
         reactions: value.reactions || [],
         comments: value.comments || [],
+        reacted: userHasReacted,
       };
     });
     posts = await Promise.all(promises);
@@ -268,14 +274,21 @@ app.get('/user/:id', [getUser], async (req, res, next) => {
     let posts = [];
     if (postsSnapshot.exists()) {
       posts = Object.entries(postsSnapshot.val()).map(
-        ([key, value]) => ({
-          ...value,
-          accountName: profile.name,
-          formattedTimestamp: formatDate(value.timestamp).formattedTimestamp,
-          reactions: value.reactions || [],
-          comments: value.comments || [],
-          id: key,
-        })
+        ([key, value]) => {
+          let userHasReacted = false;
+          if (auth.currentUser != null) {
+            userHasReacted = value.reactions && value.reactions.hasOwnProperty(auth.currentUser.uid);
+          } 
+          return {
+            ...value,
+            accountName: profile.name,
+            formattedTimestamp: formatDate(value.timestamp).formattedTimestamp,
+            reactions: value.reactions || [],
+            reacted: userHasReacted,
+            comments: value.comments || [],
+            id: key,
+          }
+        }
       );
       posts.sort((a, b) => b.timestamp - a.timestamp);
     }

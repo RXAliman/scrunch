@@ -4,8 +4,9 @@ main {
 }
 
 main .main-content {
-    justify-content: center;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 2rem 0;
     flex: 1;
     transition: margin-left 0.3s

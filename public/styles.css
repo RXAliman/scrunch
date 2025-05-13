@@ -8,10 +8,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
     line-height: 1.5;
     font-size: 1rem;
-}
-
-a {
-    color: var(--red-text);
 }

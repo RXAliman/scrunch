@@ -1,10 +1,10 @@
 /* header.ejs */
-header {
+.header__mobile {
     display: none;
 }
 
 @media (max-width: 784px) {
-    header {
+    .header__mobile {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -12,24 +12,148 @@ header {
         padding: 1rem;
     }
 
-    header .logo a {
-        font-weight: bold;
-        text-decoration: none;
-        font-size: 2rem;
+    .header__mobile .logo a{
+        display: block;
+        background-size: contain;
+        overflow: hidden;
+        background: url('/assets/V1-Logo.png') no-repeat center center;
+        width: 160px;
+        height: 90px;
     }
 }
 
 /* feed.ejs */
-.post-image {
-    width: 468px;
+.post__container {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 0 1rem 0;
+    margin: 1rem 0 0 0;
+    width: clamp(450px ,100%, 468px);
+    max-width: 468px;
 }
 
-.preserve-whitespace {
-    white-space: pre-wrap;
+@media (max-width: 784px) {
+    .post__container .post__header,
+    .post__container .post__caption,
+    .post__container .post__metrics{
+        padding: 0 .5rem;
+    }
 }
+
+/* feed header */
+.post__container .post__header {
+    display: flex;
+    align-items: center;
+    margin: 0 0 .75rem 0;
+    gap: .5rem;
+}
+
+.post__container .post__header p,
+.post__container .post__header .post__time-stamp * {
+    color: var(--grey-text);
+}
+
+.post__container .post__header .post__edit {
+    all: unset;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: .25rem;
+    background-color: var(--none-bg);
+}
+
+.post__container .post__header .post__edit i {
+    color: var(--accent-color);
+}
+
+/* feed caption */
+.post__container .post__caption {
+    white-space: pre-wrap;
+    margin: 0 0 .25rem 0;
+}
+
+.post__container .post__caption .show-more {
+    all: unset;
+    color: var(--grey-text);
+    cursor: pointer;
+}
+
+/* feed main */
+.post__container .post__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.post__container .post__content .post__image {
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    width: clamp( 450px, 100%, 468px);
+    border-radius: .25rem;
+}
+
+@media (max-width: 784px) {
+    .post__container .post__content {
+        padding: 0;
+    }
+}
+
+/* feed metrics */
+.post__container .post__metrics {
+    display: flex;
+    margin: .25rem 0;
+    gap: 1rem;
+}
+
+/* w/authentication */
+.post__container .post__metrics .reaction-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.post__container .post__metrics .like-container,
+.post__container .post__metrics .comment-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.post__container .post__metrics .post__like,
+.post__container .post__metrics .post__comment{
+    all: unset;
+    cursor: pointer;
+    font-size: 2rem;
+    border-radius: .25rem;
+    background-color: var(--none-bg);
+}
+
+.post__container .post__metrics .post__like *,
+.post__container .post__metrics .post__comment *{
+    color: var(--accent-color);
+    transition: color 0.3s ease ,opacity 0.3s ease;
+}
+
+.post__container .post__metrics .post__like *:hover,
+.post__container .post__metrics .post__comment *:hover{
+    opacity: .8;
+}
+
+.post__container .post__metrics .post__like i.fa-cookie-bite {
+    color: var(--red-text);
+}
+
+/* w/o authentication */
+.post__container .post__metrics .post__not-login a {
+    color: var(--blue-text);
+} 
+
+.post__container .post__metrics .post__not-login a:hover {
+    text-decoration: underline;
+} 
+
 
 /* sidebar.ejs */
-aside {
+.sidebar {
     display: flex;
     flex-direction: column;
     position: sticky;
@@ -46,19 +170,23 @@ aside {
     gap: 2rem;
 }
 
-aside .logo a {
-    text-decoration: none;
-    font-size: 1.5rem;
+.sidebar .logo a {
+    display: block;
+    width: 160px;
+    height: 90px;
+    background: url('/assets/V1-Logo.png') no-repeat center center;
+    background-size: contain;
+    overflow: hidden;
 }
 
-aside nav {
+.sidebar nav {
     display: flex;
     flex-direction: column;
     gap: .5rem;
     flex-grow: 1;
 }
 
-aside nav .nav__list {
+.sidebar nav .nav__list {
     list-style: none;
     display: flex;
     flex-direction: column;
@@ -66,14 +194,14 @@ aside nav .nav__list {
     gap: 1rem;
 }
 
-aside nav .nav__list .nav__items > * {
+.sidebar nav .nav__list .nav__items > * {
     all: unset;
     display: flex;
     align-items: center;
     text-align: center;
     border: none;
     cursor: pointer;
-    background-color: var(--primary-color);
+    background-color: var(--none-bg);
     color: var(--dark-text);
     width: 100%;
     padding: 1rem 0 1rem .5rem;
@@ -82,39 +210,44 @@ aside nav .nav__list .nav__items > * {
     flex-shrink: 0;
 }
 
-aside nav .nav__list .nav__items * > i {
+.sidebar nav .nav__list .nav__items * > i {
     margin: 0 .75rem 0 0;
     font-size: 1rem;
 }
 
-aside nav .nav__list .nav__items > *:hover {
+.sidebar nav .nav__list .nav__items > *:hover {
     background: var(--secondary-color);
 }
 
-aside nav .nav__list .nav__items .nav__items--red *{
+.sidebar nav .nav__list .nav__items .nav__items--red *{
     color: var(--red-text);
 }
 
 @media (max-width: 1260px) {
-    aside {
+    .sidebar {
         align-items: center;
         width: 70px;    
         padding: 1rem;
     }
     
-    aside .logo a span {
-        display: none;
+    .sidebar .logo a {
+        display: block;
+        width: 40x;
+        height: 40px;
+        background: url('/assets/V1-logo-Isolated.png') no-repeat center center;
+        background-size: contain;
+        overflow: hidden;
     }
 
-    aside nav {
+    .sidebar nav {
         flex-grow: 0;
     }
 
-    aside nav .nav__list .nav__items * > span {
+    .sidebar nav .nav__list .nav__items * > span {
         display: none;
     }
 
-    aside nav .nav__list .nav__items > * {
+    .sidebar nav .nav__list .nav__items > * {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -130,7 +263,7 @@ aside nav .nav__list .nav__items .nav__items--red *{
     }
 
 @media (max-width: 784px) {
-    aside {
+    .sidebar {
         display: none;
     }
 
@@ -164,8 +297,8 @@ aside nav .nav__list .nav__items .nav__items--red *{
         text-align: center;
         border: none;
         cursor: pointer;
-        background-color: var(--primary-color);
-        padding: 2rem;
+        background-color: var(--none-bg);
+        padding: 1rem;
     }
 
     .bottom-navigation nav .nav__list .nav__items .nav__items--red *{

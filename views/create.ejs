@@ -5,30 +5,26 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title><%= post == null ? "Create Post | Scrunch" : "Edit Post | Scrunch" %></title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' href="/styles/style.css">
+    <!-- css styles hiearchy -->
     <link rel="stylesheet" href="/theme.css">
-    <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/partials.css">
+    <link rel="stylesheet" href="/styles.css">
+     <link rel="stylesheet" href="/partials.css">
+    <!-- add font awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- add google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #4e73df;
-            --primary-hover: #3a5cd0;
-            --secondary-color: #f8f9fc;
+            /* --secondary-color: #f8f9fc; */
             --text-color: #333;
             --light-gray: #e3e6f0;
             --border-radius: 8px;
             --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fc;
             color: var(--text-color);
             display: flex;
@@ -163,13 +159,13 @@
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             color: white;
             border: none;
         }
 
         .btn-primary:hover {
-            background-color: var(--primary-hover);
+            background-color: var(--secondary-hover);
             transform: translateY(-2px);
         }
 
@@ -227,9 +223,6 @@
     <div class="main-content">
         <div class="page-header">
             <h1><%= post == null ? "Create New Post" : "Edit Your Post" %></h1>
-            <a href="/posts" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> Back to Posts
-            </a>
         </div>
         
         <div class="post-form">

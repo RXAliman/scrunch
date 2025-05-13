@@ -4,12 +4,11 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' href='/styles/style.css'>
     <!-- CSS Styles Hiearchy -->
     <link rel="stylesheet" href="/theme.css">
-    <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/partials.css">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/partials.css">
+    <link rel="stylesheet" href="/profile.css">
     <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Add Google Fonts -->
@@ -18,14 +17,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <title><%= profile.name %> | Scrunch</title>
 </head>
-<%- include("partials/sidebar.ejs")  %>
 <body>
-    <h1><%= profile.name %></h1>
-    <% if (posts.length != 0) { %>
-        <h3><%= posts.length > 1 ? posts.length + ' posts' : posts.length + ' post' %></h3>
-        <%- include("partials/feed.ejs") %>
-    <% } else { %> 
-        <h3>No posts from <%= profile.name %></h3>
-    <% } %> 
+    <!-- header.ejs apear only on mobile -->
+    <%- include("partials/header.ejs") %>
+    <!-- main -->
+    <main>
+        <!-- sidebar.ejs -->
+        <%- include("partials/sidebar.ejs") %>
+        <section class="main-content" id="main-content">
+            <h1><%= profile.name %></h1>
+            <% if (posts.length != 0) { %>
+                <h3><%= posts.length > 1 ? posts.length + ' posts' : posts.length + ' post' %></h3>
+                <%- include("partials/feed.ejs") %>
+            <% } else { %> 
+                <h3>No posts from <%= profile.name %></h3>
+            <% } %> 
+        </section>
+    </main>
+    <!-- bottom_navigation.ejs apear only on mobile -->
+    <%- include("partials/bottom_navigation.ejs") %>
 </body>
 </html>

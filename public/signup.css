@@ -1,0 +1,240 @@
+/* overall */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+/* signup container */
+.signup-container {
+    background-color: white;
+    box-shadow: var(--box-shadow);
+    width: 100%;
+    max-width: 500px;
+    border-radius: .75rem;
+    overflow: hidden;
+}
+
+/* signup header */
+.signup-container .signup-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: var(--primary-color);
+    padding: 2rem;
+}
+
+.signup-container .signup-header .brand-logo {
+    background: url('/assets/V1-Logo.png') no-repeat center center;
+    background-size: contain;
+    overflow: hidden;
+    width: 176px;
+    height: 99px;
+    margin-bottom: 1rem;
+}
+
+.signup-container .signup-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.signup-container .signup-header p {
+    opacity: 0.8;
+    font-size: 1rem;
+}
+
+@media (max-width: 576px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .signup-form {
+        padding: 1.5rem;
+    }
+
+    .signup-header {
+        padding: 1.5rem;
+    }
+}
+
+/* signup form */
+.signup-container .signup-form {
+    padding: 2rem;
+}
+
+.signup-container .signup-form .alert-error {
+    background-color: var(--alert-color);
+    color: var(--error-color);
+    padding: 1rem;
+    border-radius: .25rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.signup-container .signup-form .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.signup-container .signup-form .form-group {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.signup-container .signup-form .form-group.half {
+    flex: 1;
+}
+
+.signup-container .signup-form .input-group {
+    position: relative;
+}
+
+.signup-container .signup-form .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--grey-text);
+}
+
+.signup-container .signup-form .form-control {
+    width: 100%;
+    padding: 0.85rem;
+    padding-left: 2.5rem;
+    padding-right:  2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: .25rem;
+    font-size: 1rem;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.signup-container .signup-form .form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--box-shadow);
+}
+
+/* password */
+.signup-container .signup-form .password-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.signup-container .signup-form .password-toggle i {
+    font-size: 1rem;
+    color: var(--grey-text);
+}
+
+.signup-container .signup-form .password-requirements {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+}
+
+.signup-container .signup-form .password-strength {
+    overflow: hidden;
+    position: relative;
+    margin-top: 0.5rem;
+    height: 4px;
+    background-color: #eee;
+    border-radius: 2px;
+}
+
+.signup-container .signup-form .password-strength-meter {
+    height: 100%;
+    width: 0;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+/* Validation visual cues */
+.signup-container .signup-form .input-group.valid .form-control {
+    border-color: var(--success-color);
+}
+
+.signup-container .signup-form .input-group.valid .input-icon {
+    color: var(--success-color);
+}
+
+.signup-container .signup-form .input-group.invalid .form-control {
+    border-color: var(--error-color);
+}
+
+.signup-container .signup-form .input-group.invalid .input-icon {
+    color: var(--error-color);
+}
+
+.signup-container .signup-form .validation-message {
+    display: none;
+    position: absolute;
+    margin: .25rem 0 0 0;
+    font-size: 0.8rem;
+    color: var(--error-color);
+}
+
+.signup-container .signup-form .input-group.invalid .validation-message {
+    display: block;
+}
+
+/* cta/submit */
+.signup-container .signup-form .btn {
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-weight: 500;
+    border-radius: .25rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.signup-container .signup-form .btn-primary {
+    color: var(--dark-text);
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    width: 100%;
+}
+
+.signup-container .signup-form .btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+.signup-container .signup-form .btn-primary:focus {
+    box-shadow: var(--box-shadow);
+}
+
+/* signup footer */
+.signup-container .login-link {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--grey-text);
+}
+
+.signup-container .login-link a {
+    color: var(--blue-text);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-container .login-link a:hover {
+    text-decoration: underline;
+}
+

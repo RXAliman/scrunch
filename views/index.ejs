@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Scrunch - Connect and share with friends">
-    <!-- CSS Styles Hiearchy -->
-     <link rel="stylesheet" href="/theme.css">
-    <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/partials.css">
+    <!-- css styles hiearchy -->
+    <link rel="stylesheet" href="/theme.css">
     <link rel="stylesheet" href="/styles.css">
-    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="/partials.css">
+    <link rel="stylesheet" href="/index.css">
+    <!-- add font awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Add Google Fonts -->
+    <!-- add google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -30,22 +30,24 @@
             <% if (posts && posts.length > 0) { %>
 
                 <!-- laoding -->
-                <div class="loader" id="feedLoader"></div>
                 <!-- feed -->
-                <article class="feed-container">
+                <section class="feed-container">
                     <!-- feed.ejs -->
-                    <%- include("partials/feed.ejs") %>
-                </article>
-            <% } else { %>
-                <!-- empty -->
-                <article class="empty-space">
-                    <i class="far fa-comment-dots"></i>
-                    <h3>It's empty here... Be the first one to post!</h3>
-                    <p>Share your thoughts, ask questions, or start a conversation. Your post will appear here.</p>
-                    <button class="new-post-btn" id="emptyStatePostBtn">
-                        <i class="fas fa-plus"></i> Create Your First Post
-                    </button>
-                </article>
+                         <%- include("partials/feed.ejs") %>
+                </section>
+                <div class="loader" id="feedLoader"></div>
+                <% } else { %>
+                    <!-- empty -->
+                    <article class="empty-space">
+                        <span class="icon">
+                            <i class="far fa-comment-dots"></i>
+                        </span>
+                        <h3>It's empty here... Be the first one to post!</h3>
+                        <p>Share your thoughts, ask questions, or start a conversation. Your post will appear here.</p>
+                        <button class="new-post-btn" id="emptyStatePostBtn">
+                            <i class="fas fa-plus"></i> <span>Create Your First Post</span> 
+                        </button>
+                    </article>
             <% } %>
         </section>
     </main>

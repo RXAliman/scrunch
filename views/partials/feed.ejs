@@ -1,35 +1,67 @@
 <% posts.forEach(post => { %>
-    <a id="<%= post.id %>"></a>
-    <b><a href="/user/<%= post.accountID %>"><%= post.accountName %></a></b> • <span style="color:grey;"><a href="/post/<%= post.id %>"><%= post.formattedTimestamp %></a></span>
-    <% if (post.accountID == id) { %>
-        <button onclick="location.href='/post/<%= post.id %>/edit';">Edit Post</button>
-    <% } %>
-    <p class="preserve-whitespace"><%= post.caption %></p>
-    <img class="post-image" src="<%= post.imageURL %>">
-    <br>
-    <% if (isAuthenticated) { %>
-        <form action="/post/<%= post.id %>/react" method="POST" class="reaction-form">
-            <button type="submit" class="crunch-button" data-post-id="<%= post.id %>">
-                <% if (post.reactions[id] == true) { %>
-                    Crunched
-                <% } else { %>
-                    Crunch
-                <% } %>
-            </button>
-            <span class="reaction-count"><%= Object.keys(post.reactions).length %></span>
-            <button type="button" onclick="location.href='/post/<%= post.id %>';"><%= Object.keys(post.comments).length %> Comments</button>
-        </form>
-    <% } else { %>
-        <p><a href="/login?redirectURL=/post/<%= post.id %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= post.id %>">Sign up</a> in order to interact with this <a href="/post/<%= post.id %>">post</a>.</p>
-    <% } %>
-    <br><br>
+    <article class="post__container">
+        <!-- feed header -->
+         <header class="post__header">
+             <b class="post__user"><a href="/user/<%= post.accountID %>"><%= post.accountName %></a></b>
+             <p>•</p> 
+             <span class="post__time-stamp">
+                <a href="/post/<%= post.id %>"><%= post.formattedTimestamp %></a>
+            </span>
+             <% if (post.accountID == id) { %>
+                 <button class="post__edit" onclick="location.href='/post/<%= post.id %>/edit';"><i class="fa-solid fa-pen-to-square"></i></button>
+                 <% } %>
+            </header>
+            <!-- feed caption -->
+            <p class="post__caption" data-full="<%= post.caption.replace(/"/g, '&quot;') %>"><%= post.caption.length > 100 ? post.caption.slice(0, 100).trimEnd() + ' ...' : post.caption %><% if (post.caption.length > 100) { %><span class="show-more">more</span><% } %></p>                
+            <!-- feed main -->
+            <main class="post__content">
+                <img class="post__image" src="<%= post.imageURL %>">
+            </main>
+            <!-- feed metrics -->
+            <footer class="post__metrics">
+                <!-- w/authentication -->
+                <% if (isAuthenticated) { %>
+                    <form class="reaction-form" action="/post/<%= post.id %>/react" method="POST">
+                        <div class="like-container">
+                            <button class="post__like">
+                                <i class="fa-solid <%= post.reacted ? "fa-cookie-bite" : "fa-cookie" %>" id="<%= post.id %>"></i>
+                            </button>
+                            <span class="reaction-count"><%= Object.keys(post.reactions).length %></span>            
+                        </div>
+                        <div class="comment-container">
+                            <button type="button" class="post__comment" onclick="location.href='/post/<%= post.id %>';"><i class="fa-solid fa-comment"></i></button>
+                            <span class="comment-count"><%= Object.keys(post.comments).length %></span>
+                        </div>
+                    </form>
+                <!-- w/o authentication -->
+                <% } else { %> 
+                    <p class="post__not-login"><a href="/login?redirectURL=/post/<%= post.id %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= post.id %>">Sign up</a> in order to interact with this <a href="/post/<%= post.id %>">post</a>.</p>
+                <% } %> 
+            </footer>
+    </article>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // add event listener to show more button
+            document.querySelectorAll(".post__caption .show-more").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const caption = btn.closest(".post__caption");
+                    caption.textContent = caption.dataset.full;
+                });
+            });
+        });
+        </script>
 <% }) %>
+
 <script>
+    // Create new Audio object for the cookie sound
+    const cookieSound = new Audio('/assets/crunch.mp3');
+
+    // add event listener to reaction (crunch) button
     document.querySelectorAll('.reaction-form').forEach(form => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
-            const button = form.querySelector('.crunch-button');
+            const button = form.querySelector('.fa-solid');
             const reactionCountSpan = form.querySelector('.reaction-count');
             try {
                 const response = await fetch(form.action, {
@@ -38,9 +70,12 @@
                 if (response.ok) {
                     const data = await response.json();
                     if (data.reacted) {
-                        button.textContent = 'Crunched';
+                        button.classList.remove('fa-cookie');
+                        button.classList.add('fa-cookie-bite');
+                        cookieSound.play(); // Play the cookie sound on successful reaction
                     } else {
-                        button.textContent = 'Crunch';
+                        button.classList.remove('fa-cookie-bite');
+                        button.classList.add('fa-cookie');
                     }
                     reactionCountSpan.textContent = data.reactionCount;
                 }

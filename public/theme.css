@@ -3,10 +3,22 @@
     --primary-color: #e5c29f;
     --secondary-color: #ac9277;
     --accent-color: #504438;
-    --light-bg: #f5f7fa;
+    --light-bg: #ffffff;
+    --border-color: #cacaca;
+    /* light mode hover */
+    --primary-hover: #caa57f;
+    --secondary-hover: #9e846b;
     /* text color */
     --dark-text: #3C3C3C;
     --light-text: #FFFFFF;
-    --red-text: #c50000 ;
-    --border-color: #e0e6ed;
+    --grey-text: #807979;
+    --blue-text: #2563eb;
+    --red-text: #c50000;
+    /* others */
+    --none-bg: rgba(0, 0, 0, 0);
+    --alpha: rgba(0, 0, 0, .15);
+    --box-shadow: 0 .25rem .75rem var(--alpha);
+    --alert-color: #e74c3c1a;
+    --error-color: #ff3333;
+    --success-color: #7A9E7E;
 }
