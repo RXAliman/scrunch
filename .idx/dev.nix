@@ -9,7 +9,10 @@
     pkgs.nodejs_20
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    API_KEY = "AIzaSyCIbEhF-xjsf4l25bUStI9CoOQvoKoDhUs";
+    DATABASE_URL = "https://scrunch-ac497-default-rtdb.asia-southeast1.firebasedatabase.app";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
@@ -23,6 +26,17 @@
       # Runs when a workspace is (re)started
       onStart= {
         run-server = "npm run dev";
+      };
+    };
+    previews = {
+      enable = true;
+      previews = {
+        web = {
+          command = [];
+          manager = "web";
+          # Optionally, specify a directory that contains your web app
+          # cwd = "app/client";
+        };
       };
     };
   };

@@ -1,0 +1,33 @@
+<footer class="bottom-navigation">
+    <% if (isAuthenticated == true) { %>
+    <nav>
+        <ul class="nav__list">
+            <li class="nav__items"><a href="/">
+                <i class="fa-solid fa-house"></i></a>
+            </li>
+            <li class="nav__items">
+                <button id="newPostBtn">
+                    <i class="fas fa-plus"></i></i>
+                </button>
+            </li>
+            <li class="nav__items">
+                <a href="/user/<%= id %>"><i class="fa-solid fa-circle-user"></i></a>
+            </li>
+            <li class="nav__items">
+                <a class="nav__items--red" href="/signout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </li>
+        </ul>
+    </nav>
+    <% } else { %>
+        <nav>
+            <ul class="nav__list">
+                <li class="nav__items">
+                    <a href="/login"><i class="fa-solid fa-circle-user"></i></a>
+                </li>
+                <li class="nav__items">
+                    <a href="/signup"><i class="fa-solid fa-user-plus"></i></a>
+                </li>
+            </ul>
+        </nav>
+    <% } %>
+</footer>

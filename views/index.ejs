@@ -1,18 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="/styles/style.css">
-    <title>Scrunch</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Scrunch - Connect and share with friends">
+    <!-- CSS Styles Hiearchy -->
+     <link rel="stylesheet" href="/theme.css">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/partials.css">
+    <link rel="stylesheet" href="/styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Scrunch | Home</title>
 </head>
-<%- include("partials/sidebar.ejs")  %>
+
 <body>
-    <% if (posts.length != 0) { %>
-        <%- include("partials/feed.ejs") %>
-    <% } else { %>
-        <h3>It's empty here... Be the first one to post</h3>
-    <% } %>
+    <!-- header.ejs apear only on mobile -->
+    <%- include("partials/header.ejs") %>
+    <!-- main -->
+    <main>
+        <!-- sidebar.ejs -->
+        <%- include("partials/sidebar.ejs") %>
+        <section class="main-content" id="main-content">
+            <% if (posts && posts.length > 0) { %>
+
+                <!-- laoding -->
+                <div class="loader" id="feedLoader"></div>
+                <!-- feed -->
+                <article class="feed-container">
+                    <!-- feed.ejs -->
+                    <%- include("partials/feed.ejs") %>
+                </article>
+            <% } else { %>
+                <!-- empty -->
+                <article class="empty-space">
+                    <i class="far fa-comment-dots"></i>
+                    <h3>It's empty here... Be the first one to post!</h3>
+                    <p>Share your thoughts, ask questions, or start a conversation. Your post will appear here.</p>
+                    <button class="new-post-btn" id="emptyStatePostBtn">
+                        <i class="fas fa-plus"></i> Create Your First Post
+                    </button>
+                </article>
+            <% } %>
+        </section>
+    </main>
+    <!-- bottom_navigation.ejs apear only on mobile -->
+    <%- include("partials/bottom_navigation.ejs") %>
+    
+    <!-- Script -->
+    <script>
+        // Basic interaction for the demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // New post button functionality
+            const newPostBtn = document.getElementById('newPostBtn');
+            const emptyStatePostBtn = document.getElementById('emptyStatePostBtn');
+            
+            if (newPostBtn) {
+                newPostBtn.addEventListener('click', function() {
+                    // Redirect to create post page or open a modal
+                    window.location.href = '/create';
+                });
+            }
+            
+            if (emptyStatePostBtn) {
+                emptyStatePostBtn.addEventListener('click', function() {
+                    window.location.href = '/create';
+                });
+            }
+            
+            const feedLoader = document.getElementById('feedLoader');
+            
+            // Feed filter functionality
+            const feedFilter = document.getElementById('feedFilter');
+            if (feedFilter) {
+                feedFilter.addEventListener('change', function() {
+                    feedLoader.style.display = 'block';
+                    
+                    // Simulate filter change with timeout
+                    setTimeout(function() {
+                        feedLoader.style.display = 'none';
+                        // In a real app, you would fetch and update posts here
+                    }, 1000);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

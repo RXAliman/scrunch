@@ -4,11 +4,11 @@
         <button onclick="location.href='/post/<%= post.id %>/edit';">Edit Post</button>
     <% } %>
     <p class="preserve-whitespace"><%= post.caption %></p>
-    <img src="<%= post.imageURL %>">
+    <img class="post-image" src="<%= post.imageURL %>">
     <br>
     <% if (isAuthenticated) { %> 
-        <button>Crunch</button>
-        <button onclick="location.href='/post/<%= post.id %>';">Comments</button>
+        <button><%= Object.keys(post.reactions).length %> Crunch</button>
+        <button onclick="location.href='/post/<%= post.id %>';"><%= Object.keys(post.comments).length %> Comments</button>
     <% } else { %> 
         <p><a href="/login?redirectURL=/post/<%= post.id %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= post.id %>">Sign up</a> in order to interact with this <a href="/post/<%= post.id %>">post</a>.</p>
     <% } %> 

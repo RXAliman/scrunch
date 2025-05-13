@@ -1,12 +1,36 @@
+<!-- sidebar -->
 <aside>
-    <h1><a href="/">Scrunch</a></h1>
+    <h1 class="logo"><a href="/"><span>Scrunch</span></a></h1>
     <% if (isAuthenticated == true) { %>
-        <h3><a href="/user/<%= id %>"><%= firstName %> <%= lastName %></a></h3>
-        <h3><a href="/create/">Create Post</a></h3>
-        <h3><a href="/signout">Sign out</a></h3>
+        <nav>
+            <ul class="nav__list">
+                <li class="nav__items"><a href="/">
+                    <i class="fa-solid fa-house"></i><span>Home</span></a>
+                </li>
+                <li class="nav__items">
+                    <button id="newPostBtn">
+                        <i class="fas fa-plus"></i><span>Create</span>
+                    </button>
+                </li>
+                <li class="nav__items">
+                    <a href="/user/<%= id %>"><i class="fa-solid fa-circle-user"></i><span>Profile</span></a>
+                </li>
+                <li class="nav__items">
+                    <a class="nav__items--red" href="/signout"><i class="fa-solid fa-right-from-bracket"></i><span>Sign out</span></a>
+                </li>
+            </ul>
+        </nav>
     <% } else { %>
-        <h3><a href="/login">Log in</a></h3>
-        <h3><a href="/signup">Sign up</a></h3>
+        <nav>
+            <ul class="nav__list">
+                <li class="nav__items">
+                    <a href="/login"><i class="fa-solid fa-circle-user"></i><span>Log in</span></a>
+                </li>
+                <li class="nav__items">
+                    <a href="/signup"><i class="fa-solid fa-user-plus"></i><span>Sign up</span></a>
+                </li>
+            </ul>
+        </nav>
     <% } %>
 </aside>
 <br>
