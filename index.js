@@ -1,6 +1,6 @@
 import express from 'express';
 import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, push, set, update, get, orderByChild, query, equalTo } from 'firebase/database';
+import { getDatabase, ref, push, set, update, get, orderByChild, query, equalTo, remove } from 'firebase/database';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -123,8 +123,10 @@ function formatDate(timestamp) {
     } else{
       result.formattedTimestamp = `${diffInSeconds}s`;
     }
-  } else if (diffInDays < 9) {
+  } else if (diffInDays < 7) {
     result.formattedTimestamp = `${diffInDays}d`;
+  } else if (diffInDays <= 28) {
+    result.formattedTimestamp = `${Math.round(diffInDays / 7)}w`;
   } else {
     result.formattedTimestamp = `${month} ${day}, ${year}`;
   }
@@ -413,6 +415,39 @@ app.post('/post/:id/edit', [getUser], async (req, res) => {
     });
   }
 })
+app.post('/post/:id/react', [getUser], async (req, res) => {
+  const id = req.params.id;
+  const userID = auth.currentUser.uid;
+  const data = {
+    [userID]: true,
+  }
+  try {
+    const postSnapshot = await get(ref(db, `posts/${id}`));
+    if (postSnapshot.exists()) {
+      const post = postSnapshot.val();
+      const reactions = post.reactions || {};
+      if (reactions[userID]) {
+        const userReactionRef = ref(db, `posts/${id}/reactions/${userID}`);
+        await remove(userReactionRef);
+      } else {
+        await update(ref(db,`posts/${id}/reactions`), {
+          ...data,
+        });
+      }
+      // Fetch the updated post to get the latest reactions count
+      const updatedPostSnapshot = await get(ref(db, `posts/${id}`));
+      const updatedPost = updatedPostSnapshot.val() || {};
+      const updatedReactionCount = Object.keys(updatedPost.reactions || {}).length;
+      // Determine if the user has reacted after the update/removal
+      const userHasReacted = updatedPost.reactions && updatedPost.reactions.hasOwnProperty(userID);
+      res.json({ success: true, reactionCount: updatedReactionCount, reacted: userHasReacted });
+    } else {
+      res.status(404).json({ success: false, message: 'Post not found' });
+    }
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
