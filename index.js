@@ -150,6 +150,8 @@ app.get('/', [getUser], async (req, res) => {
         imageURL: value.imageURL,
         formattedTimestamp: timestamp,
         timestamp: value.timestamp,
+        reactions: value.reactions || [],
+        comments: value.comments || [],
       };
     });
     posts = await Promise.all(promises);
@@ -266,6 +268,8 @@ app.get('/user/:id', [getUser], async (req, res, next) => {
           ...value,
           accountName: profile.name,
           formattedTimestamp: formatDate(value.timestamp).formattedTimestamp,
+          reactions: value.reactions || [],
+          comments: value.comments || [],
           id: key,
         })
       );
@@ -372,9 +376,11 @@ app.get('/post/:id/edit', [getUser], async (req, res, next) => {
     if (postSnapshot.exists()) {
       const post = postSnapshot.val();
       if (post.accountID === auth.currentUser.uid) {
+        const reactions = post.reactions || [];
         res.render('create.ejs', {
           ...res.locals.user,
           post,
+          reactions,
           postID: id,
         });
         return;
