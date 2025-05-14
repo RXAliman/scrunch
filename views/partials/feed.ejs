@@ -1,11 +1,3 @@
-<%             
-// Function to format caption with clickable URLs
-function formatCaption(caption) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-    return caption.replace(urlRegex, (url) => {
-        return `<a href="${url}" target="_blank">${url}</a>`;
-    });
-}%>
 <% posts.forEach(post => { %>
     <article class="post__container">
         <!-- feed header -->
@@ -20,7 +12,7 @@ function formatCaption(caption) {
                  <% } %>
             </header>
             <!-- feed caption -->
-            <p class="post__caption" data-full="<%= post.caption %>"><%= post.caption.length > 100 ? formatCaption(post.caption.slice(0, 100).trimEnd() + ' ...') : formatCaption(post.caption) %><% if (post.caption.length > 100) { %><span class="show-more">more</span><% } %></p>
+            <p class="post__caption" data-full="<%= post.caption %>"><%= post.caption.length > 100 ? post.caption.slice(0, 100).trimEnd() + ' ...' : post.caption %><% if (post.caption.length > 100) { %><span class="show-more">more</span><% } %></p>
             <!-- feed main -->
             <main class="post__content">
                 <img class="post__image" src="<%= post.imageURL %>">
@@ -60,7 +52,7 @@ function formatCaption(caption) {
             // Format all captions initially
             document.querySelectorAll(".post__caption").forEach(captionElement => {
                 const fullCaption = captionElement.dataset.full;
-                captionElement.innerHTML = captionElement.innerHTML.includes('...') ? formatCaption(fullCaption.slice(0, 100).trimEnd() + ' ...') : formatCaption(fullCaption);
+                captionElement.innerHTML = captionElement.innerHTML.includes('...') ? fullCaption.slice(0, 100).trimEnd() + ' ...' : fullCaption;
             });
 
         });
