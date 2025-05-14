@@ -30,9 +30,6 @@
                     <!-- Post Header -->
                     <div class="post-header">
                         <div class="post-author">
-                            <div class="author-avatar">
-                                <%= accountName.charAt(0).toUpperCase() %>
-                            </div>
                             <div class="author-info">
                                 <a href="/user/<%= post.accountID %>" class="author-name"><%= accountName %></a>
                                 <span class="post-timestamp"><%= formattedTimestamp %></span>
@@ -93,9 +90,6 @@
                                     <div class="comment-card">
                                         <div class="comment-header">
                                             <div class="comment-author">
-                                                <div class="emoji-avatar">
-                                                    <%= comment.accountName.charAt(0).toUpperCase() %>
-                                                </div>
                                                 <a href="/user/<%= comment.accountID %>" class="comment-author-name">
                                                     <%= comment.accountName %>
                                                 </a>
@@ -156,6 +150,23 @@
                 this.alt = 'Image not available';
             };
         }
+
+        // Function to make URLs in text clickable
+        function linkify(text) {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, function(url) {
+                return '<a href="' + url + '" target="_blank">' + url + '</a>';
+            });
+        }
+
+        // Apply linkify to post caption
+        const postContentElement = document.querySelector('.post-content');
+        if (postContentElement) {
+            postContentElement.innerHTML = linkify(postContentElement.innerHTML);
+        }
+
+        // Apply linkify to comments (if they exist)
+        // You would need to iterate through comment elements and apply the linkify function
     </script>
 </body>
 </html>

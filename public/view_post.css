@@ -135,6 +135,16 @@ main .main-content .empty-space .icon i {
     font-size: 1.1rem;
 }
 
+/* post content */
+main .post-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+main .post-content a:hover {
+    text-decoration: underline;
+}
+
 .interaction-bar {
     display: flex;
     padding: 0.75rem 1.5rem;
