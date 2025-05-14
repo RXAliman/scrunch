@@ -9,6 +9,7 @@ import {
   signOut,
   validatePassword
 } from 'firebase/auth';
+import favicon from 'serve-favicon';
 
 const app = express();
 const PORT = 3000;
@@ -45,6 +46,7 @@ onAuthStateChanged(auth, (user) => {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(favicon('public/assets/favicon.ico'));
 
 // Middleware for getting the current user
 const getUser = async(req, res, next) => {
@@ -249,7 +251,7 @@ app.post('/signup', async (req, res) => {
       firstName: data.firstName,
       lastName: data.lastName,
     });
-    res.redirect(redirectURL || '/user/' + accountID);
+    res.redirect(redirectURL || '/');
   } catch (error) {
     res.render('signup', {
       errorMessage: error,

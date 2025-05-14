@@ -82,7 +82,7 @@ main .main-content .empty-space .icon i {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .post-author {
@@ -138,8 +138,8 @@ main .main-content .empty-space .icon i {
 .interaction-bar {
     display: flex;
     padding: 0.75rem 1.5rem;
-    border-top: 1px solid var(--light-gray);
-    border-bottom: 1px solid var(--light-gray);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .btn {
@@ -188,14 +188,14 @@ main .main-content .empty-space .icon i {
 
 .comment-form {
     padding: 1.5rem;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .comment-textarea {
     width: 100%;
     min-height: 80px;
     padding: 0.75rem;
-    border: 1px solid var(--light-gray);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
     resize: vertical;
     font-family: inherit;
@@ -211,7 +211,7 @@ main .main-content .empty-space .icon i {
 .auth-prompt {
     padding: 1.5rem;
     text-align: center;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .auth-prompt a {
@@ -243,7 +243,7 @@ main .main-content .empty-space .icon i {
 
 .comment-card {
     padding: 1rem 0;
-    border-bottom: 1px solid var(--light-gray);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .comment-card:last-child {

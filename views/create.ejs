@@ -272,7 +272,7 @@
                 </div>
                 
                 <div class="form-actions">
-                    <button type="button" onclick="location.href='/posts'" class="btn btn-secondary">
+                    <button type="button" onclick="location.href = '<%= post != null ? `/post/${postID}` : `/` %>'" class="btn btn-secondary">
                         <i class="fas fa-times"></i> Cancel
                     </button>
                     <button type="submit" class="btn btn-primary">
