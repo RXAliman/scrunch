@@ -14,9 +14,9 @@
 
     .header__mobile .logo a{
         display: block;
+        background: url('/assets/V1-Logo.png') no-repeat center center;
         background-size: contain;
         overflow: hidden;
-        background: url('/assets/V1-Logo.png') no-repeat center center;
         width: 160px;
         height: 90px;
     }
@@ -27,10 +27,10 @@
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid var(--border-color);
-    padding: 0 0 1rem 0;
-    margin: 1rem 0 0 0;
     width: clamp(450px ,100%, 468px);
     max-width: 468px;
+    padding: 0 0 1rem 0;
+    margin: 1rem 0 0 0;
 }
 
 @media (max-width: 784px) {
@@ -172,11 +172,11 @@
 
 .sidebar .logo a {
     display: block;
-    width: 160px;
-    height: 90px;
     background: url('/assets/V1-Logo.png') no-repeat center center;
     background-size: contain;
     overflow: hidden;
+    width: 160px;
+    height: 90px;
 }
 
 .sidebar nav {

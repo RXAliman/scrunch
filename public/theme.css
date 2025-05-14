@@ -4,16 +4,20 @@
     --secondary-color: #ac9277;
     --accent-color: #504438;
     --light-bg: #ffffff;
+    --grey-bg: #dcdcdc;
     --border-color: #cacaca;
+
     /* light mode hover */
     --primary-hover: #caa57f;
     --secondary-hover: #9e846b;
+
     /* text color */
     --dark-text: #3C3C3C;
     --light-text: #FFFFFF;
     --grey-text: #807979;
     --blue-text: #2563eb;
     --red-text: #c50000;
+    
     /* others */
     --none-bg: rgba(0, 0, 0, 0);
     --alpha: rgba(0, 0, 0, .15);
