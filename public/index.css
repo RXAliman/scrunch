@@ -49,3 +49,13 @@ main .main-content .empty-space .new-post-btn > * {
 main .main-content .empty-space .icon i {
     font-size: 2rem;
 }
+
+/* post content */
+main .post__caption a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+main .post__caption a:hover {
+    text-decoration: underline;
+}

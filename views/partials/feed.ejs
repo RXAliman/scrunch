@@ -12,7 +12,7 @@
                  <% } %>
             </header>
             <!-- feed caption -->
-            <p class="post__caption" data-full="<%= post.caption.replace(/"/g, '&quot;') %>"><%= post.caption.length > 100 ? post.caption.slice(0, 100).trimEnd() + ' ...' : post.caption %><% if (post.caption.length > 100) { %><span class="show-more">more</span><% } %></p>                
+            <p class="post__caption" data-full="<%= post.caption %>"><%= post.caption.length > 100 ? post.caption.slice(0, 100).trimEnd() + ' ...' : post.caption %><% if (post.caption.length > 100) { %><span class="show-more">more</span><% } %></p>
             <!-- feed main -->
             <main class="post__content">
                 <img class="post__image" src="<%= post.imageURL %>">

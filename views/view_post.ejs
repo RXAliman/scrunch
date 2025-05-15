@@ -39,9 +39,6 @@
                     <!-- Post Header -->
                     <header class="post-header">
                         <div class="post-author">
-                            <div class="author-avatar">
-                                <%= accountName.charAt(0).toUpperCase() %>
-                            </div>
                             <div class="author-info">
                                 <a href="/user/<%= post.accountID %>" class="author-name"><%= accountName %></a>
                                 <p class="post-timestamp"><%= formattedTimestamp %></p>
@@ -54,10 +51,70 @@
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                             <% } %>
+                            <button class="btn-text" title="More options">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
                         </div>
-                    </header>
-                    <!-- post caption -->
-                    <div class="post-caption"><%= post.caption %></div>
+                    </div>
+                    
+                    <!-- Post Content -->
+                    <div class="post-content"><%= post.caption %></div>
+                    
+                    <!-- Comment Form or Login Prompt -->
+                    <% if (isAuthenticated) { %>
+                        <div class="comment-form">
+                            <form action="/post/<%= postID %>" method="POST" id="commentForm">
+                                <textarea 
+                                    name="comment" 
+                                    class="comment-textarea" 
+                                    placeholder="Add a comment as <%= firstName %> <%= lastName %>..." 
+                                    required
+                                ></textarea>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Post Comment
+                                </button>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <div class="auth-prompt">
+                            <p><a href="/login?redirectURL=/post/<%= postID %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= postID %>">Sign up</a> to comment on this post.</p>
+                        </div>
+                    <% } %>
+                    
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <div class="comments-header">
+                            <h3 class="comments-count">
+                                <% if (comments && comments.length > 0) { %>
+                                    <%= comments.length %> <%= comments.length === 1 ? 'Comment' : 'Comments' %>
+                                <% } else { %>
+                                    Comments
+                                <% } %>
+                            </h3>
+                        </div>
+                        
+                        <% if (comments && comments.length > 0) { %>
+                            <div class="comments-list">
+                                <% comments.forEach(comment => { %>
+                                    <div class="comment-card">
+                                        <div class="comment-header">
+                                            <div class="comment-author">
+                                                <a href="/user/<%= comment.accountID %>" class="comment-author-name">
+                                                    <%= comment.accountName %>
+                                                </a>
+                                            </div>
+                                            <span class="comment-timestamp"><%= comment.formattedTimestamp %></span>
+                                        </div>
+                                        <div class="comment-content"><%= comment.content %></div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="no-comments">
+                                <p>No comments yet. Be the first to share your thoughts!</p>
+                            </div>
+                        <% } %>
+                    </div>
                 </div>
 
                 <!-- divider -->
@@ -170,6 +227,23 @@
                 this.alt = 'Image not available';
             };
         }
+
+        // Function to make URLs in text clickable
+        function linkify(text) {
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return text.replace(urlRegex, function(url) {
+                return '<a href="' + url + '" target="_blank">' + url + '</a>';
+            });
+        }
+
+        // Apply linkify to post caption
+        const postContentElement = document.querySelector('.post-content');
+        if (postContentElement) {
+            postContentElement.innerHTML = linkify(postContentElement.innerHTML);
+        }
+
+        // Apply linkify to comments (if they exist)
+        // You would need to iterate through comment elements and apply the linkify function
     </script>
 </body>
 </html>

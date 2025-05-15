@@ -9,6 +9,7 @@ import {
   signOut,
   validatePassword
 } from 'firebase/auth';
+import favicon from 'serve-favicon';
 
 const app = express();
 const PORT = 3000;
@@ -45,6 +46,7 @@ onAuthStateChanged(auth, (user) => {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
+app.use(favicon('public/assets/favicon.ico'));
 
 // Middleware for getting the current user
 const getUser = async(req, res, next) => {
@@ -133,6 +135,7 @@ function formatDate(timestamp) {
 }
 
 // Routes
+// GET Home Route - displays the home page
 app.get('/', [getUser], async (req, res) => {
   // Get all posts
   const snapshot = await get(query(dbPostsRef, orderByChild('timestamp')));
@@ -173,6 +176,7 @@ app.get('/', [getUser], async (req, res) => {
     ...res.locals.user,
   });
 });
+// GET Login Route - displays the login page
 app.get('/login', (req, res) => {
   if (isAuthenticated) {
     res.redirect('/');
@@ -184,6 +188,7 @@ app.get('/login', (req, res) => {
     });
   }
 });
+// POST Login Route - retrieves and handles the login credentials
 app.post('/login', async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -200,6 +205,7 @@ app.post('/login', async (req, res, next) => {
     }
   );
 });
+// GET Signup Route - displays the signup page
 app.get('/signup', (req, res) => {
   res.render('signup.ejs', {
     errorMessage: null,
@@ -209,6 +215,7 @@ app.get('/signup', (req, res) => {
     redirectURL: req.query.redirectURL,
   });
 });
+// POST Signup Route - retrieves and handles the signup authentication details
 app.post('/signup', async (req, res) => {
   const data = {
     firstName: req.body.firstName,
@@ -249,7 +256,7 @@ app.post('/signup', async (req, res) => {
       firstName: data.firstName,
       lastName: data.lastName,
     });
-    res.redirect(redirectURL || '/user/' + accountID);
+    res.redirect(redirectURL || '/');
   } catch (error) {
     res.render('signup', {
       errorMessage: error,
@@ -258,6 +265,7 @@ app.post('/signup', async (req, res) => {
     })
   }
 });
+// GET Logout Route - logs the user out
 app.get('/signout', (req, res) => {
   signOut(auth).then(() => {
     res.redirect('/');
@@ -265,6 +273,7 @@ app.get('/signout', (req, res) => {
     res.status(500).send(error);
   });
 });
+// GET User Profile Route - displays the user profile
 app.get('/user/:id', [getUser], async (req, res, next) => {
   const id = req.params.id;
   const snapshot = await get(ref(db, `profiles/${id}`));
@@ -302,12 +311,14 @@ app.get('/user/:id', [getUser], async (req, res, next) => {
   }
   next();
 });
+// GET Create Post Route - displays the create post page
 app.get('/create', [getUser], (req, res) => {
   res.render('create.ejs', {
     ...res.locals.user,
     post: null,
   });
 });
+// POST Create Post Route - retrieves and handles the posting
 app.post('/create', async (req, res) => {
   const data = {
     accountID: auth.currentUser.uid,
@@ -324,6 +335,7 @@ app.post('/create', async (req, res) => {
     res.render('create', { errorMessage: error, ...data });
   }
 });
+// GET View Post Route - displays the given post and comments
 app.get('/post/:id', [getUser], async (req, res, next) => {
   const postID = req.params.id;
   try {
@@ -370,6 +382,7 @@ app.get('/post/:id', [getUser], async (req, res, next) => {
   }
   next();
 });
+// POST View Post Route - retrieves and handles the posting of comments
 app.post('/post/:id', async (req, res, next) => {
   const id = req.params.id;
   const data = {
@@ -386,6 +399,7 @@ app.post('/post/:id', async (req, res, next) => {
     console.log(error);
   }
 });
+// GET Edit Post Route - displays the edit post page
 app.get('/post/:id/edit', [getUser], async (req, res, next) => {
   const id = req.params.id;
   if (isAuthenticated) {
@@ -406,6 +420,7 @@ app.get('/post/:id/edit', [getUser], async (req, res, next) => {
   }
   next();
 });
+// POST Edit Post Route - retrieves and handles the editing of posts
 app.post('/post/:id/edit', [getUser], async (req, res) => {
   const id = req.params.id;
   const data = {
@@ -428,6 +443,7 @@ app.post('/post/:id/edit', [getUser], async (req, res) => {
     });
   }
 })
+// POST Reaction Route - retrieves and handles the reactions
 app.post('/post/:id/react', [getUser], async (req, res) => {
   const id = req.params.id;
   const userID = auth.currentUser.uid;
@@ -462,6 +478,7 @@ app.post('/post/:id/react', [getUser], async (req, res) => {
   }
 });
 
+// Server starts
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });

@@ -142,6 +142,22 @@ main .main-content .main-container .post-card .post-caption {
     font-size: 1.1rem;
 }
 
+/* post content */
+main .post-content a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+main .post-content a:hover {
+    text-decoration: underline;
+}
+
+.interaction-bar {
+    display: flex;
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+
 /* divider */
 main .main-content .main-container .divider {
     border: 1px solid var(--border-color);
@@ -255,6 +271,27 @@ main .main-content .main-container .comment-card .comment-form form .btn-text:ho
     color: var(--primary-color);
 }
 
+.comment-form {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.comment-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    resize: vertical;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
 
 /* w/o authorization */
 main .main-content .main-container .comment-card .auth-prompt {
