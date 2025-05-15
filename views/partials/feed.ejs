@@ -48,13 +48,6 @@
                     caption.textContent = caption.dataset.full;
                 });
             });
-
-            // Format all captions initially
-            document.querySelectorAll(".post__caption").forEach(captionElement => {
-                const fullCaption = captionElement.dataset.full;
-                captionElement.innerHTML = captionElement.innerHTML.includes('...') ? fullCaption.slice(0, 100).trimEnd() + ' ...' : fullCaption;
-            });
-
         });
         </script>
 <% }) %>
