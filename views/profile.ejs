@@ -24,11 +24,30 @@
     <main>
         <!-- sidebar.ejs -->
         <%- include("partials/sidebar.ejs") %>
+        <!-- content -->
         <section class="main-content" id="main-content">
-            <h1><%= profile.name %></h1>
-            <% if (posts.length != 0) { %>
-                <h3><%= posts.length > 1 ? posts.length + ' posts' : posts.length + ' post' %></h3>
-                <%- include("partials/feed.ejs") %>
+            <!-- user/vanity metrics -->
+             <section class="profile__info-metrics">
+                 <!-- profile avatar-->
+                 <div class="profile__avatar"><%= profile.name.charAt(0).toUpperCase() %></div>
+                 <!-- profile information -->
+                 <article class="profile__information">
+                     <h1 class="profile__name"><%= profile.name %></h1>
+                     <% if (posts.length != 0) { %>
+                        <!-- vanity metrics -->
+                        <summary class="profile__vanity-metrics">
+                            <ul class="profile__vanity">
+                                <li class="profile__metrics">
+                                    <h3"><%= posts.length > 1 ? posts.length + ' posts' : posts.length + ' post' %></h3>
+                                </li>
+                            </ul>
+                        </summary>
+                    </article>
+                </section>
+                <!-- feed override - feed.ejs -->
+                 <section class="feed-container">
+                     <%- include("partials/feed.ejs") %>
+                </section>
             <% } else { %> 
                 <h3>No posts from <%= profile.name %></h3>
             <% } %> 

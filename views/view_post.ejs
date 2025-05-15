@@ -18,21 +18,30 @@
     <title><%= title %></title>
 </head>
 <body>
+    <!-- header.ejs -->
     <%- include("partials/header.ejs") %>
+
+    <!-- main -->
     <main>
+        <!-- sidebar.ejs -->
         <%- include("partials/sidebar.ejs") %>
+        
+        <!-- content -->
         <section class="main-content">
-            <div class="post-container">
+            <!-- post container -->
+            <div class="main-container">
                 <div class="post-card">
                     <!-- Post Image -->
-                    <img src="<%- post.imageURL %>" alt="Post image" class="post-image">
+                     <header class="post-content">
+                         <img src="<%- post.imageURL %>" alt="Post image" class="post-image">
+                     </header>
                     
                     <!-- Post Header -->
-                    <div class="post-header">
+                    <header class="post-header">
                         <div class="post-author">
                             <div class="author-info">
                                 <a href="/user/<%= post.accountID %>" class="author-name"><%= accountName %></a>
-                                <span class="post-timestamp"><%= formattedTimestamp %></span>
+                                <p class="post-timestamp"><%= formattedTimestamp %></p>
                             </div>
                         </div>
                         
@@ -107,10 +116,78 @@
                         <% } %>
                     </div>
                 </div>
+
+                <!-- divider -->
+                <div class="divider"></div>
+                
+                <!-- comment containers -->
+                <section class="comment-card">
+                     <% if (isAuthenticated) { %>
+                        <!-- comment prompt -->
+                         <div class="comment-form">
+                             <form action="/post/<%= postID %>" method="POST" id="commentForm">
+                                 <textarea 
+                                     name="comment" 
+                                     class="comment-textarea" 
+                                     placeholder="Add a comment as <%= firstName %> <%= lastName %>..." 
+                                     required
+                                 ></textarea>
+                                 <button type="submit" class="btn btn-primary">
+                                     <i class="fas fa-paper-plane"></i> Post Comment
+                                 </button>
+                             </form>
+                         </div>
+                     <% } else { %>
+                        <!-- w/o authorization -->
+                         <div class="auth-prompt">
+                             <p><a href="/login?redirectURL=/post/<%= postID %>">Log in</a> or <a href="/signup?redirectURL=/post/<%= postID %>">Sign up</a> to comment on this post.</p>
+                         </div>
+                     <% } %>
+                     
+                     <!-- comment section -->
+                     <div class="comments-section">
+                         <div class="comments-header">
+                             <h3 class="comments-count">
+                                 <% if (comments && comments.length > 0) { %>
+                                     <%= comments.length %> <%= comments.length === 1 ? 'Comment' : 'Comments' %>
+                                 <% } else { %>
+                                     Comments
+                                 <% } %>
+                             </h3>
+                         </div>
+                         
+                         <% if (comments && comments.length > 0) { %>
+                             <div class="comments-list">
+                                 <% comments.forEach(comment => { %>
+                                     <div class="comment-card">
+                                         <div class="comment-header">
+                                             <div class="comment-author">
+                                                 <div class="emoji-avatar">
+                                                     <%= comment.accountName.charAt(0).toUpperCase() %>
+                                                 </div>
+                                                 <a href="/user/<%= comment.accountID %>" class="comment-author-name">
+                                                     <%= comment.accountName %>
+                                                 </a>
+                                             </div>
+                                             <span class="comment-timestamp"><%= comment.formattedTimestamp %></span>
+                                         </div>
+                                         <div class="comment-content"><%= comment.content %></div>
+                                     </div>
+                                 <% }) %>
+                             </div>
+                         <% } else { %>
+                            <!-- empty comments -->
+                             <div class="no-comments">
+                                 <p>No comments yet. Be the first to share your thoughts!</p>
+                             </div>
+                         <% } %>
+                     </div>
+                 </section>
             </div>
         </section>
     </main>
     <%- include("partials/bottom_navigation.ejs") %>
+
     <script>
         // Crunch button interaction
         const crunchButton = document.getElementById('crunchButton');
