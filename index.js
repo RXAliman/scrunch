@@ -1,3 +1,5 @@
+require('gopd'); console.log('gopd required successfully');
+
 import express from 'express';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, push, set, update, get, orderByChild, query, equalTo, remove } from 'firebase/database';
