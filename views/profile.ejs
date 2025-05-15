@@ -49,7 +49,14 @@
                      <%- include("partials/feed.ejs") %>
                 </section>
             <% } else { %> 
-                <h3>No posts from <%= profile.name %></h3>
+                <!-- vanity metrics -->
+                <summary class="profile__vanity-metrics">
+                    <ul class="profile__vanity">
+                        <li class="profile__metrics">
+                            <h3">No posts from <%= profile.name %></h3>
+                        </li>
+                    </ul>
+                </summary>
             <% } %> 
         </section>
     </main>

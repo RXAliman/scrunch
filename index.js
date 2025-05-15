@@ -399,6 +399,17 @@ app.post('/post/:id', async (req, res, next) => {
     console.log(error);
   }
 });
+// DELETE View Post Route - handles the deletion of posts
+app.delete('/post/:id/delete', async (req, res) => {
+  const id = req.params.id;
+  try {
+    await remove(ref(db, `posts/${id}`));
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
 // GET Edit Post Route - displays the edit post page
 app.get('/post/:id/edit', [getUser], async (req, res, next) => {
   const id = req.params.id;

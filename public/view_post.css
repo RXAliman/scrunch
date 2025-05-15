@@ -64,7 +64,7 @@ main .main-content .main-container .post-card {
 
 /* post image */
 main .main-content .main-container .post-card .post-content {
-    width: clamp(450px ,100%, 468px);
+    width: 100%;
     height: 100%;
 }
 
@@ -132,31 +132,40 @@ main .main-content .main-container .post-card .post-header .author-info .post-ti
 
 main .main-content .main-container .post-card .post-header .post-actions {
     display: flex;
-    gap: 0.5rem;
+    gap: 1rem;
+}
+
+main .main-content .main-container .post-card .post-header .post-actions .delete-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+    background-color: none;
+    color: var(--error-color);
+}
+
+main .main-content .main-container .post-card .post-header .post-actions .delete-button i {
+    font-family: "Font Awesome 6 Free";
 }
 
 /* post caption */
 main .main-content .main-container .post-card .post-caption {
     white-space: pre-wrap;
     padding: 0 1.5rem;
+    word-wrap: break-word;
     font-size: 1.1rem;
+    width: 500px;
 }
 
-/* post content */
-main .post-content a {
+main .main-content .main-container .post-card .post-caption a {
     color: var(--secondary-color);
     text-decoration: none;
 }
-
-main .post-content a:hover {
+main .main-content .main-container .post-card .post-caption a:hover {
     text-decoration: underline;
 }
-
-.interaction-bar {
-    display: flex;
-    padding: 0.75rem 1.5rem;
-    border-top: 1px solid var(--border-color);
-    border-bottom: 1px solid var(--border-color);
 
 /* divider */
 main .main-content .main-container .divider {
@@ -271,27 +280,6 @@ main .main-content .main-container .comment-card .comment-form form .btn-text:ho
     color: var(--primary-color);
 }
 
-.comment-form {
-    padding: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.comment-textarea {
-    width: 100%;
-    min-height: 80px;
-    padding: 0.75rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    resize: vertical;
-    font-family: inherit;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-.comment-textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
 
 /* w/o authorization */
 main .main-content .main-container .comment-card .auth-prompt {
@@ -386,4 +374,3 @@ main .main-content .main-container .comment-card .comments-section .no-comments 
     color: var(--grey-text);
     padding: 2rem 0;
 }
-

@@ -2,6 +2,9 @@
     <article class="post__container">
         <!-- feed header -->
          <header class="post__header">
+            <div class="author-avatar">
+                <%= post.accountName.charAt(0).toUpperCase() %>
+            </div>
              <b class="post__user"><a href="/user/<%= post.accountID %>"><%= post.accountName %></a></b>
              <p>•</p> 
              <span class="post__time-stamp">

@@ -25,6 +25,19 @@ main .main-content .feed-container {
     gap: 1rem;
 }
 
+main .main-content .feed-container .post__container .post__header .author-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    color: var(--light-text);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+}
+
 /* empty */
 main .main-content .empty-space {
     display: flex;
