@@ -70,6 +70,7 @@
 .post__container .post__caption {
     white-space: pre-wrap;
     margin: 0 0 .25rem 0;
+    word-wrap: break-word;
 }
 
 .post__container .post__caption .show-more {
