@@ -17,6 +17,7 @@
     "express": "^4.21.2",
     "firebase": "^11.6.1",
     "firebase-admin": "^13.3.0",
+    "gopd": "^1.2.0",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
