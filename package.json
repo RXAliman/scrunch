@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "postinstall": "npm list"
+    "postinstall": "npm install express && npm list"
   },
   "author": "Google LLC",
   "license": "Apache-2.0",
