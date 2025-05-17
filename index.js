@@ -489,6 +489,11 @@ app.post('/post/:id/react', [getUser], async (req, res) => {
   }
 });
 
+// Test route to serve styles.css
+app.get('/test-styles', (req, res) => {
+  res.sendFile(process.cwd() + '/public/styles.css');
+});
+
 // Server starts
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
