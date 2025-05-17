@@ -46,7 +46,7 @@ onAuthStateChanged(auth, (user) => {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(favicon('/public/assets/favicon.ico'));
+app.use(favicon('public/assets/favicon.ico'));
 
 // Middleware for getting the current user
 const getUser = async(req, res, next) => {
