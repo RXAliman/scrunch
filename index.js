@@ -46,7 +46,7 @@ onAuthStateChanged(auth, (user) => {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(favicon(process.cwd() + '/public/assets/favicon.ico'));
+// app.use(favicon(process.cwd() + '/public/assets/favicon.ico'));
 
 // Middleware for getting the current user
 const getUser = async(req, res, next) => {
@@ -487,11 +487,6 @@ app.post('/post/:id/react', [getUser], async (req, res) => {
   } catch (e) {
     res.status(500).json({ success: false, message: e.message });
   }
-});
-
-// Test route to serve styles.css
-app.get('/test-styles', (req, res) => {
-  res.sendFile(process.cwd() + '/public/styles.css');
 });
 
 // Server starts
